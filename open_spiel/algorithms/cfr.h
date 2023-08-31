@@ -303,20 +303,31 @@ class CFRSolverBase {
 
 // Standard CFR implementation.
 //
-// See https://poker.cs.ualberta.ca/publications/NIPS07-cfr.pdf
+// See https://poker.cs.ualberta.ca/publications/NIgPS07-cfr.pdf
 class CFRSolver : public CFRSolverBase {
  public:
-  explicit CFRSolver(const Game& game)
+ explicit
+  CFRSolver(const Game& game, int seed, bool random_initial_regrets)
+      : CFRSolverBase(game,
+                          /*alternating_updates=*/true,
+                          /*linear_averaging=*/false,
+                          /*regret_matching_plus=*/false,
+                          random_initial_regrets,
+                          seed
+                          ) {}
+   CFRSolver(const Game& game)
       : CFRSolverBase(game,
                       /*alternating_updates=*/true,
                       /*linear_averaging=*/false,
-                      /*regret_matching_plus=*/false) {}
+                      /*regret_matching_plus=*/false
+                      ) {}
   // The constructor below is used for deserialization purposes.
   CFRSolver(std::shared_ptr<const Game> game, int iteration)
       : CFRSolverBase(game,
                       /*alternating_updates=*/true,
                       /*linear_averaging=*/false,
                       /*regret_matching_plus=*/false, iteration) {}
+  
 
  protected:
   std::string SerializeThisType() const { return "CFRSolver"; }
