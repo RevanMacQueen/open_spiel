@@ -212,8 +212,8 @@ void init_pyspiel_policy(py::module& m) {
            &open_spiel::PreferredActionPolicy::GetStatePolicy);
 
   py::class_<open_spiel::algorithms::CFRSolver>(m, "CFRSolver")
-      .def(py::init([](std::shared_ptr<const Game> game) {
-        return new algorithms::CFRSolver(*game);
+      .def(py::init([](std::shared_ptr<const Game> game, int seed, bool random_initial_regrets) {
+        return new algorithms::CFRSolver(*game, seed, random_initial_regrets);
       }))
       .def("evaluate_and_update_policy",
            &open_spiel::algorithms::CFRSolver::EvaluateAndUpdatePolicy)
@@ -230,8 +230,8 @@ void init_pyspiel_policy(py::module& m) {
           }));
 
   py::class_<open_spiel::algorithms::CFRPlusSolver>(m, "CFRPlusSolver")
-      .def(py::init([](std::shared_ptr<const Game> game) {
-        return new algorithms::CFRPlusSolver(*game);
+      .def(py::init([](std::shared_ptr<const Game> game, int seed, bool random_initial_regrets) {
+        return new algorithms::CFRPlusSolver(*game, seed, random_initial_regrets);
       }))
       .def("evaluate_and_update_policy",
            &open_spiel::algorithms::CFRPlusSolver::EvaluateAndUpdatePolicy)

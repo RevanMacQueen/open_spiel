@@ -311,7 +311,7 @@ class CFRSolver : public CFRSolverBase {
       : CFRSolverBase(game,
                           /*alternating_updates=*/true,
                           /*linear_averaging=*/false,
-                          /*regret_matching_plus=*/false,
+                          /*regret_matching_plus=*/true,
                           random_initial_regrets,
                           seed
                           ) {}
@@ -351,6 +351,14 @@ class CFRPlusSolver : public CFRSolverBase {
                       /*alternating_updates=*/true,
                       /*linear_averaging=*/true,
                       /*regret_matching_plus=*/true) {}
+
+  CFRPlusSolver(const Game& game, int seed, bool random_initial_regrets)
+      : CFRSolverBase(game,
+                      /*alternating_updates=*/true,
+                      /*linear_averaging=*/true,
+                      /*regret_matching_plus=*/true, 
+                      random_initial_regrets,
+                      seed) {}
   // The constructor below is used for deserialization purposes.
   CFRPlusSolver(std::shared_ptr<const Game> game, int iteration)
       : CFRSolverBase(game,
